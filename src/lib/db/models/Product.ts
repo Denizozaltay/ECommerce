@@ -7,19 +7,21 @@ export interface IProduct extends Document {
   price: number;
   description: string;
   stock: number;
+  image: string;
 }
 
-// DB seviyesinde Product'ın şeması?
+// DB seviyesinde Product'ın şeması
 const ProductSchema: Schema<IProduct> = new Schema(
   {
     name: { type: String, required: true, minlength: 2 },
     price: { type: Number, required: true, min: 0 },
     description: { type: String, required: false },
     stock: { type: Number, required: true, min: 0 },
+    image: { type: String, required: true }, // ← ✅ ŞEMA'YA DA EKLİYORUZ
   },
-  { timestamps: true } //TODO: Üzerine konuşulacak
+  { timestamps: true }
 );
 
-// Tüm sistemde bu şema-tanım bağlantısının kullanılacağı değişken.
+// Tüm sistemde bu şema-tanım bağlantısının kullanılacağı değişken
 export const Product: Model<IProduct> =
   mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
